@@ -24,7 +24,14 @@ export default function Home() {
        </S.HeaderContent>
      </S.Header>
 
-     <Car data={CarStaticData}/>
+    <S.CarList 
+      data={[1, 2, 3]}
+      keyExtractor={item => CarStaticData.id}
+      renderItem={({ item }) => 
+        <Car data={CarStaticData}/>
+      }
+    />
+     
    </S.Container>
   );
 }

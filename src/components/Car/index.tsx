@@ -5,6 +5,7 @@ import GasolineIcon from '../../assets/gasoline.svg';
 import * as S from './styles';
 
 export interface CarData {
+  id: string;
   brand: string;
   name: string;
   rent: {

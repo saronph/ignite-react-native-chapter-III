@@ -1,6 +1,9 @@
 import { CarData } from './';
 
+let id = 1;
+
 export const CarStaticData: CarData = {
+    id: String(id++),
     brand: 'audi',
     name: 'RS 5 Coupé',
     rent: {
