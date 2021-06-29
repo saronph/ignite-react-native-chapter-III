@@ -1,4 +1,7 @@
 import React from 'react';
+import { Feather } from '@expo/vector-icons';
+import { RFValue } from 'react-native-responsive-fontsize';
+import { useTheme } from 'styled-components';
 import { useNavigation } from '@react-navigation/native';
 
 import Accessory from '../../components/Accessory';
@@ -15,13 +18,14 @@ import PeopleSvg from '../../assets/people.svg';
 
 import * as S from './styles';
 
-export default function CarDetails() {
+export default function SchedulingDetails() {
+  const theme = useTheme();
   const navigation = useNavigation();
 
-  function handleConfirmRental() {
-    navigation.navigate('Scheduling');
+  function handleConfirm() {
+    navigation.navigate('SchedulingComplete')
   }
-  
+
   return (
     <S.Container>
       <S.Header>
@@ -55,13 +59,49 @@ export default function CarDetails() {
           <Accessory name="2 Pessoas" icon={PeopleSvg} />
         </S.Accessories>
 
-        <S.About>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Labore voluptatum incidunt excepturi expedita laboriosam error dolore aliquam facilis unde beatae! Nisi unde modi odit nam quos nostrum ea sed nemo!
-        </S.About>
+        <S.RentalPeriod>
+          <S.CalendarIcon>
+            <Feather 
+            name='calendar'
+            size={RFValue(24)}
+            color={theme.colors.shape}
+            />
+          </S.CalendarIcon>
+
+          <S.DateInfo>
+            <S.DateTitle>DE</S.DateTitle>
+            <S.DateValue>18/06/2021</S.DateValue>
+          </S.DateInfo>
+
+          <Feather 
+            name='chevron-right'
+            size={RFValue(10)}
+            color={theme.colors.text}
+          />
+
+          <S.DateInfo>
+            <S.DateTitle>até</S.DateTitle>
+            <S.DateValue>18/06/2021</S.DateValue>
+          </S.DateInfo>
+
+
+        </S.RentalPeriod>
+      
+        <S.RentalPrice>
+        <S.RentalPriceLabel>Total</S.RentalPriceLabel>
+        <S.RentalPriceDetails>
+          <S.RentalPriceQuota>R$ 580 x3 diárias</S.RentalPriceQuota>
+          <S.RentalPriceTotal>R$ 2.900,00</S.RentalPriceTotal>
+        </S.RentalPriceDetails>
+        </S.RentalPrice>
       </S.Content>
 
       <S.Footer>
-        <Button title="Escolher período do aluguel" onPress={handleConfirmRental}/>
+        <Button 
+          title="Alugar agora" 
+          color={theme.colors.success} 
+          onPress={handleConfirm} 
+        />
       </S.Footer>
     </S.Container>
   );

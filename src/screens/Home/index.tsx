@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { StatusBar } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 
@@ -9,6 +10,11 @@ import { CarStaticData } from '../../components/Car/car.data';
 import * as S from './styles';
 
 export default function Home() {
+  const navigation = useNavigation();
+
+  function handleCarDetails() {
+    navigation.navigate('CarDetails');
+  }
   
  return (
    <S.Container>
@@ -25,10 +31,10 @@ export default function Home() {
      </S.Header>
 
     <S.CarList 
-      data={[1, 2, 3]}
-      keyExtractor={item => CarStaticData.id}
+      data={CarStaticData}
+      keyExtractor={item => item.id}
       renderItem={({ item }) => 
-        <Car data={CarStaticData}/>
+        <Car data={item} onPress={handleCarDetails}/>
       }
     />
      

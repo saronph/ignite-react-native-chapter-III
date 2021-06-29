@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { FlatList } from 'react-native';
+import { CarData } from '../../components/Car';
 
 export const Container = styled.View`
   flex: 1;

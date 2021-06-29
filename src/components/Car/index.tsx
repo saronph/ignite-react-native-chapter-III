@@ -1,4 +1,5 @@
 import React from 'react';
+import { RectButtonProps } from 'react-native-gesture-handler';
 
 import GasolineIcon from '../../assets/gasoline.svg';
 
@@ -15,13 +16,13 @@ export interface CarData {
   thumbnail: string;
 }
 
-interface Props {
+interface Props extends RectButtonProps {
   data: CarData;
 }
 
-export default function Car({ data }: Props) {
+export default function Car({ data, ...rest }: Props) {
  return (
-   <S.Container>
+   <S.Container {...rest}>
      <S.Details>
        <S.Brand>{data.brand}</S.Brand>
        <S.Name>{data.name}</S.Name>

@@ -5,14 +5,12 @@ import * as S from './styles';
 
 interface Props extends RectButtonProps {
   title: string;
-  color?: string;
-  // onPress?: () => void;
 }
 
-export default function Button({ title, color, ...rest }: Props) {
+export default function ConfirmButton({ title, ...rest }: Props) {
   return (
-   <S.Container {...rest} color={color}>
-     <S.Title>{title}</S.Title>
-   </S.Container>
+    <S.Container {...rest}>
+      <S.Title>{title}</S.Title>
+    </S.Container>
   );
 }
