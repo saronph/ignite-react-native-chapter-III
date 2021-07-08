@@ -1,47 +1,78 @@
 import React from 'react';
-import { Button, StyleSheet, Dimensions } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
+import BrandSvg from '../../assets/brand.svg';
+import LogoSvg from '../../assets/logo.svg';
+
 import Animated, { 
   useSharedValue, 
   useAnimatedStyle,
   withTiming,
-  Easing
+  Easing,
+  interpolate,
+  Extrapolate,
+  runOnJS
 } from 'react-native-reanimated';
 
 import * as S from './styles';
 
-const WIDTH = Dimensions.get('window').width;
-
 export default function Splash() {
-  const animation = useSharedValue(0);
+  const splashAnimation = useSharedValue(0); // 0 -> 50 duração
 
-  const animatedStyles = useAnimatedStyle(() => {
+  const navigation = useNavigation();
+
+  const brandStyle = useAnimatedStyle(() => {
     return {
+      opacity: interpolate(splashAnimation.value, [0, 50], [1, 0]),
       transform: [
-        { translateX: withTiming(animation.value, {
-          duration: 3000,
-          easing: Easing.bezier(.73,.17,0,1)
-        }) }
+        {
+          translateX: interpolate(splashAnimation.value, 
+            [0, 50],
+            [0, -50],
+            Extrapolate.CLAMP  
+          )
+        }
       ]
     }
-  })
+  });
 
-  function handleAnimationPosition() {
-    animation.value = Math.random()* (WIDTH - 100);
+  const logoStyle = useAnimatedStyle(() => {
+    return {
+      opacity: interpolate(splashAnimation.value, [0, 25, 50], [0, .3, 1]),
+      transform: [
+        {
+          translateX: interpolate(splashAnimation.value, 
+            [0, 50],
+            [-50, 0],
+            Extrapolate.CLAMP
+          )
+        }
+      ]
+    }
+  });
+
+  function startApp() {
+    navigation.navigate('Home');
   }
+
+  React.useEffect(() => {
+    splashAnimation.value = withTiming( 50, { duration: 1000 },
+      () => {
+        'worklet'        
+        runOnJS(startApp)();
+      }  
+    );    
+  }, []);
 
   return (
     <S.Container>
-      <Animated.View style={[styles.box, animatedStyles]} />
+      <Animated.View style={[brandStyle, { position: 'absolute' }]}>
+        <BrandSvg width={80} height={50} />
+      </Animated.View>
 
-      <Button title="Mover" onPress={handleAnimationPosition} />
+      <Animated.View style={[logoStyle, { position: 'absolute' }]}>
+        <LogoSvg width={180} height={20} />
+      </Animated.View>
     </S.Container>
   );
 }
-
-const styles = StyleSheet.create({
-  box: {
-    width: 100,
-    height: 100,
-    backgroundColor: 'red'
-  }
-})
