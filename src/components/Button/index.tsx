@@ -10,6 +10,7 @@ interface Props extends RectButtonProps {
   color?: string;
   enabled?: boolean;
   loading?: boolean;
+  light?: boolean;
 }
 
 export default function Button({ 
@@ -17,6 +18,7 @@ export default function Button({
   color, 
   enabled = true, 
   loading = false, 
+  light = false,
   ...rest 
 }: Props) {
   const theme = useTheme();
@@ -30,7 +32,7 @@ export default function Button({
     >
       { loading 
         ? <ActivityIndicator color={theme.colors.shape} /> 
-        : <S.Title>{title}</S.Title>      
+        : <S.Title light={light}>{title}</S.Title>      
       }
       
     </S.Container>
