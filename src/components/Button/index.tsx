@@ -8,7 +8,6 @@ import * as S from './styles';
 interface Props extends RectButtonProps {
   title: string;
   color?: string;
-  enabled?: boolean;
   loading?: boolean;
   light?: boolean;
 }
@@ -16,7 +15,7 @@ interface Props extends RectButtonProps {
 export default function Button({ 
   title, 
   color, 
-  enabled = true, 
+  enabled = true,
   loading = false, 
   light = false,
   ...rest 
