@@ -4,7 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Home from '../screens/Home';
 import CarDetails from '../screens/CarDetails';
 import Scheduling from '../screens/Scheduling';
-import SchedulingComplete from '../screens/SchedulingComplete';
+import Confirmation from '../screens/Confirmation';
 import SchedulingDetails from '../screens/SchedulingDetails';
 import MyCars from '../screens/MyCars';
 import Splash from '../screens/Splash';
@@ -45,8 +45,8 @@ export default function StackRoutes() {
         component={Scheduling}
       />
       <Screen 
-        name='SchedulingComplete'
-        component={SchedulingComplete}
+        name='Confirmation'
+        component={Confirmation}
       />
       <Screen 
         name='SchedulingDetails'

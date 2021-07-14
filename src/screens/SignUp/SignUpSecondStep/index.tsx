@@ -12,6 +12,7 @@ import BackButton from '../../../components/BackButton';
 import Bullet from '../../../components/Bullet';
 import Button from '../../../components/Button';
 import PasswordInput from '../../../components/PasswordInput';
+import api from '../../../services/api';
 
 import * as S from './styles';
 
@@ -38,7 +39,7 @@ export default function SignUpSecondStep() {
     navigation.goBack();
   }
 
-  function handleRegister() {
+  async function handleRegister() {
     if(!password || !passwordConfirm) {
       Alert.alert('Informe a senha e a confirmação')
     }
@@ -46,6 +47,22 @@ export default function SignUpSecondStep() {
     if(password !== passwordConfirm) {
       Alert.alert('As senhas devem ser iguais')
     }
+
+    await api.post('/users', {
+      name: user.name,
+      email: user.email,
+      driver_license: user.driverLicense,
+      password,
+    }).then(() => {
+      navigation.navigate('Confirmation', {
+        nextScreenRoute: 'SignIn',
+        title: 'Conta Criada!',
+        message: `Agora é só fazer login${'\n'}e aproveitar`
+      });
+    }).catch((err) => {
+      console.log(err)
+      Alert.alert('Ocorreu um erro', 'Não foi possível cadastrar.')
+    });
   }
   
   return (
