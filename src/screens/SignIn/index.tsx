@@ -14,6 +14,7 @@ import theme from '../../styles/theme';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import PasswordInput from '../../components/PasswordInput';
+import { useAuth } from '../../hooks/auth';
 
 import * as S from './styles';
 
@@ -22,6 +23,7 @@ export default function SignIn() {
   const [password, setPassword] = useState('');
 
   const navigation = useNavigation();
+  const { signIn } = useAuth();
 
   async function handleSignIn() {
     try {
@@ -31,6 +33,8 @@ export default function SignIn() {
       });
   
       await schema.validate({ email, password })
+
+      signIn({ email, password });
     } catch (error) {
       if(error instanceof Yup.ValidationError) {
         Alert.alert('Erro', error.message);

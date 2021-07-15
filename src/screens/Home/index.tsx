@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { RectButton, PanGestureHandler } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
-import { StatusBar, StyleSheet, BackHandler } from 'react-native';
+import { StatusBar, StyleSheet } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from 'styled-components';
@@ -80,12 +80,6 @@ export default function Home() {
     fetchCars();
   }, []);
   
-  useEffect(() => {
-    BackHandler.addEventListener('hardwareBackPress', () => {
-      return true;
-    });
-  }, [])
-  
  return (
    <S.Container>
      <StatusBar 
@@ -113,7 +107,7 @@ export default function Home() {
       />
     }
 
-    <PanGestureHandler onGestureEvent={onGestureEvent}>
+    {/* <PanGestureHandler onGestureEvent={onGestureEvent}>
       <Animated.View
         style={[
           myCarsButtonStyle,
@@ -135,7 +129,7 @@ export default function Home() {
           />
         </ButtonAnimated>
       </Animated.View>
-    </PanGestureHandler>
+    </PanGestureHandler> */}
    </S.Container>
   );
 }

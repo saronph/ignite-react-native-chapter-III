@@ -3,6 +3,7 @@ import { ActivityIndicator, View } from 'react-native';
 import { ThemeProvider } from 'styled-components';
 import { useFonts, Inter_400Regular, Inter_500Medium} from '@expo-google-fonts/inter';
 import { Archivo_400Regular, Archivo_500Medium, Archivo_600SemiBold } from '@expo-google-fonts/archivo';
+import { AppProvider } from './src/hooks';
 
 import Routes from './src/routes';
 
@@ -26,8 +27,10 @@ export default function App() {
   }
   
   return (
-    <ThemeProvider theme={theme}>      
-      <Routes />
+    <ThemeProvider theme={theme}>  
+      <AppProvider>  
+        <Routes />
+      </AppProvider>  
     </ThemeProvider>
   );
 }
