@@ -58,6 +58,23 @@ export default function Profile() {
 
   }
 
+  async function handleSignOut() {
+    Alert.alert('Tem certeza?', 
+    'Ao deslogar você precisará de internet para reconectar',
+    [
+      {
+        text: 'Cancelar',
+        style: 'cancel',
+        onPress: () => {}
+      },
+      {
+        text: 'Sair',
+        onPress: () => signOut()
+      }
+    ]
+    )    
+  }
+
   async function handleProfileUpdate() {
     try {
       const schema = Yup.object().shape({
@@ -97,7 +114,7 @@ export default function Profile() {
             <S.HeaderTop>
               <BackButton color={theme.colors.shape} onPress={handleBack} />
               <S.HeaderTitle>Editar Perfil</S.HeaderTitle>
-              <S.LogoutButton onPress={signOut} >
+              <S.LogoutButton onPress={handleSignOut} >
                 <Feather name="power" size={24} color={theme.colors.shape} />
               </S.LogoutButton>          
             </S.HeaderTop>
