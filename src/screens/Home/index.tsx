@@ -67,15 +67,14 @@ export default function Home() {
     await synchronize({
       database,
       pullChanges: async ({ lastPulledAt }) => {
-        const { data } = await api
-        .get(`cars/sync/pull?lastPulledVersion=${lastPulledAt || 1617143008760}`);
+        const response = await api.get(`cars/sync/pull?lastPulledVersion=${lastPulledAt || 0}`);
 
-        const { changes, lastVersion } = data;
-        return { changes, timestamp: lastVersion };
+        const { changes, latestVersion } = response.data;
+        return { changes, timestamp: latestVersion };
       },
       pushChanges: async ({ changes }) => {
         const user = changes.users;
-        await api.post('/users/sync', user);
+        await api.post('/users/sync', user).catch(console.log);;
       }
     })
   }
@@ -115,7 +114,7 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if(netInfo.isConnected) {
+    if(netInfo.isConnected === true) {
       offlineSynchronize();
     }
   }, [netInfo.isConnected]);

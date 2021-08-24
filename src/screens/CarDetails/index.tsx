@@ -31,6 +31,8 @@ export default function CarDetails() {
   const route = useRoute();
   const { car } = route.params as Params;
 
+  console.log(car.accessories);
+
   const theme = useTheme();
 
   const scrollY = useSharedValue(0);
@@ -113,7 +115,7 @@ export default function CarDetails() {
         </S.Details>
 
         <S.Accessories>
-          {
+          {car.accessories &&          
             car.accessories.map(accessory => (
               <Accessory 
                 key={accessory.type}
