@@ -13,6 +13,7 @@ import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { useAuth } from '../../hooks/auth';
 import { useTheme } from 'styled-components';
 import { Feather } from '@expo/vector-icons';
+import { useNetInfo } from '@react-native-community/netinfo';
 
 import BackButton from '../../components/BackButton';
 import Input from '../../components/Input';
@@ -31,13 +32,18 @@ export default function Profile() {
 
   const theme = useTheme();
   const navigation = useNavigation();
+  const netInfo = useNetInfo();
 
   function handleBack() {
     navigation.goBack();
   }
 
   function handleOptionChange(optionSelected: 'dataEdit' | 'passwordEdit') {
-    setOption(optionSelected);
+    if (netInfo.isConnected === false && optionSelected === 'passwordEdit') {
+      Alert.alert('Você está offline', 'Para mudar a senha, conecte-se à internet.')
+    } else {
+      setOption(optionSelected);
+    }
   }
 
   async function handleAvatarSelect() {
